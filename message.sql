@@ -1,4 +1,7 @@
-CREATE TABLE messages (
+CREATE TABLE user_info (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    message TEXT
+    name VARCHAR(100) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    state VARCHAR(100) NOT NULL,
+    country VARCHAR(50) DEFAULT 'India' NOT NULL
 );
