@@ -1,6 +1,6 @@
 # Two-Tier Flask App
 
-A simple two-tier web application built with Flask and MySQL, demonstrating the separation of the application layer and the database layer.
+This project is a simple two-tier web application built with **Flask** (a Python web framework) and **MySQL** (a database management system). It demonstrates how to separate the application logic from the database layer using Docker containers.
 
 ## Table of Contents
 
@@ -9,57 +9,89 @@ A simple two-tier web application built with Flask and MySQL, demonstrating the 
 - [Getting Started](#getting-started)
 - [How to Run](#how-to-run)
 - [Database Setup](#database-setup)
+- [Creating a Custom Network](#creating-a-custom-network)
 - [Contributing](#contributing)
 - [License](#license)
 
 ## Features
 
-- Flask web framework for building the application.
-- MySQL for database management.
-- Docker containers for easy deployment and isolation.
+- **User-Friendly Interface**: A simple web interface for user interactions.
+- **Database Integration**: Stores messages and user data in a MySQL database.
+- **Containerized Environment**: Easy setup and deployment using Docker.
 
 ## Technologies Used
 
-- Python
-- Flask
-- MySQL
-- Docker
+- **Python**: Programming language used for the application.
+- **Flask**: Web framework for building web applications in Python.
+- **MySQL**: Relational database management system.
+- **Docker**: Platform for developing, shipping, and running applications in containers.
 
 ## Getting Started
 
-1. **Clone the Repository:**
+### Prerequisites
+
+- **Docker**: Ensure you have Docker and Docker Compose installed on your machine.
+
+### Clone the Repository
+
+1. Open your terminal or command prompt.
+2. Run the following command to clone the repository:
 
    ```bash
    git clone https://github.com/jd9327/Two-Tier-App.git
+   ```
+
+3. Navigate into the project directory:
+
+   ```bash
    cd Two-Tier-App
    ```
 
-2. **Prerequisites:**
-
-   Ensure you have Docker and Docker Compose installed on your machine.
-
 ## How to Run
 
-1. Build and run the Docker containers:
+1. **Create a Custom Network**: Before running the application, create a custom network to allow the containers to communicate:
+
+   ```bash
+   docker network create twotier
+   ```
+
+2. **Build and Run the Docker Containers**: Use the following command to build the images and start the containers:
 
    ```bash
    docker-compose up --build
    ```
 
-2. Access the application at `http://localhost:5000`.
+3. **Access the Application**: Open your web browser and go to `http://localhost:5000`. You should see the application interface.
 
 ## Database Setup
 
-- The MySQL database is initialized with environment variables defined in the `docker-compose.yml` file.
-- Modify the environment variables as needed for your configuration.
+- The MySQL database is automatically created when you run the application, using the configurations specified in the `docker-compose.yml` file.
+- You can modify the database settings (like username and password) in the `docker-compose.yml` file as needed.
+
+## Creating a Custom Network
+
+In the `docker-compose.yml` file, you can define the custom network for the services. Here is an example of how to specify the network in your Docker Compose file:
+
+```yaml
+networks:
+  twotier:
+    driver: bridge
+```
+
+This configuration ensures that both the Flask application and the MySQL database can communicate with each other seamlessly.
 
 ## Contributing
 
-Contributions are welcome! Feel free to submit a pull request or open an issue for any suggestions or improvements.
+Contributions are welcome! If you find any issues or have suggestions for improvements, feel free to open an issue or submit a pull request.
 
-### Customization
+---
 
-- Replace any placeholders (like URLs or specific configurations) with your actual project details.
-- Feel free to add any additional sections you think are necessary, such as screenshots, usage instructions, or examples.
+## Notes
 
-If you have any specific points you want to include or adjust, let me know!
+Make sure to replace placeholders (e.g., your_username, your_password, your_database) with your actual MySQL configuration.
+
+This is a basic setup for demonstration purposes. In a production environment, you should follow best practices for security and performance.
+
+Be cautious when executing SQL queries directly. Validate and sanitize user inputs to prevent vulnerabilities like SQL injection.
+
+If you encounter issues, check Docker logs and error messages for troubleshooting.
