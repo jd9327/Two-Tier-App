@@ -1,7 +1,3 @@
-Certainly! Here’s a concise README template for your Two-Tier Flask App project. You can customize it further based on your specific details:
-
----
-
 # Two-Tier Flask App
 
 A simple two-tier web application built with Flask and MySQL, demonstrating the separation of the application layer and the database layer.
@@ -60,12 +56,6 @@ A simple two-tier web application built with Flask and MySQL, demonstrating the 
 ## Contributing
 
 Contributions are welcome! Feel free to submit a pull request or open an issue for any suggestions or improvements.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
 
 ### Customization
 
