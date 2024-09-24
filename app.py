@@ -16,33 +16,43 @@ mysql = MySQL(app)
 def init_db():
     with app.app_context():
         cur = mysql.connection.cursor()
+        # Creating user_info table if it doesn't exist
         cur.execute('''
-        CREATE TABLE IF NOT EXISTS messages (
+        CREATE TABLE IF NOT EXISTS user_info (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            message TEXT
+            name VARCHAR(100) NOT NULL,
+            city VARCHAR(100) NOT NULL,
+            state VARCHAR(100) NOT NULL,
+            country VARCHAR(50) DEFAULT 'India' NOT NULL
         );
         ''')
-        mysql.connection.commit()  
+        mysql.connection.commit()
         cur.close()
 
 @app.route('/')
 def hello():
     cur = mysql.connection.cursor()
-    cur.execute('SELECT message FROM messages')
-    messages = cur.fetchall()
+    # Fetch all records from user_info
+    cur.execute('SELECT name, city, state, country FROM user_info')
+    user_info = cur.fetchall()
     cur.close()
-    return render_template('index.html', messages=messages)
+    return render_template('index.html', user_info=user_info)
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    new_message = request.form.get('new_message')
+    name = request.form.get('name')
+    city = request.form.get('city')
+    state = request.form.get('state')
+    
     cur = mysql.connection.cursor()
-    cur.execute('INSERT INTO messages (message) VALUES (%s)', [new_message])
+    # Insert new user info into the user_info table
+    cur.execute('INSERT INTO user_info (name, city, state) VALUES (%s, %s, %s)', (name, city, state))
     mysql.connection.commit()
     cur.close()
-    return jsonify({'message': new_message})
+    
+    return jsonify({'name': name, 'city': city, 'state': state})
 
 if __name__ == '__main__':
-    init_db()
+    init_db()  # Initialize the user_info table
     app.run(host='0.0.0.0', port=5000, debug=True)
 
